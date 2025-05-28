@@ -16,6 +16,10 @@ DATA_FILE = config["DATA_FILE"]
 console = Console()
 def add_entry(vault, fernet):
     site = Prompt.ask("[bold cyan] Enter Site name[/]").lower()
+    if site in vault:
+        console.print("[bold red]❌ Site exists, please set different site name.[/]")
+        return
+    
     username = Prompt.ask("[bold cyan] Enter username[/]")
     password = Prompt.ask("[bold yellow]🔑 Enter password[/]", password=True)
     
@@ -27,36 +31,37 @@ def add_entry(vault, fernet):
     console.print(Panel.fit("[bold green]✔ Password saved.[/]", style="green"))
     
 def get_entry(vault, fernet):
-    site = input("Site name to search: ").lower()
+    site = Prompt.ask("[bold cyan] Site name to search[/]").lower()
     if site in vault:
         data = vault[site]
-        print(f"Username: {data['username']}")
-        print(f"Password: {decrypt(data['password'], fernet)}")
+        console.print(f"[bold cyan]Username:[/] {data['username']}")
+        console.print(f"[bold yellow]Password:[/] {decrypt(data['password'], fernet)}")
+        console.print(Panel.fit("[bold blue]GET PASSWORD[/]", style="blue"))
     else:
-        print("❌ Site not found.")
+        console.print("[bold red]❌ Site not found.[/]")
 
 def update_entry(vault, fernet):
-    site = input("Site to update: ").lower()
+    site = Prompt.ask("[bold cyan] Site to update[/]").lower()
     if site in vault:
-        username = input("New username: ")
-        password = getpass.getpass("New password: ")
+        username = Prompt.ask("[bold cyan] New username[/]")
+        password = Prompt.ask("[bold yellow]🔑 New Password[/]", password=True)
         vault[site] = {
             "username": username,
             "password": encrypt(password, fernet)
         }
         save_vault(vault)
-        print("✔ Entry updated.")
+        console.print(Panel.fit("[bold yellow]✔ UPDATE PASSWORD[/]", style="yellow"))
     else:
-        print("❌ Site not found.")
+        console.print("[bold red]❌ Site not found.[/]")
 
 def delete_entry(vault):
-    site = input("Site to delete: ").lower()
+    site = Prompt.ask("[bold cyan]Site to delete[/]").lower()
     if site in vault:
         del vault[site]
         save_vault(vault)
-        print("✔ Entry deleted.")
+        console.print(Panel.fit("[bold red]✔ DELETE PASSWORD[/]", style="red"))
     else:
-        print("❌ Site not found.")
+        console.print("[bold red]❌ Site not found.[/]")
 
 def list_entries(vault):
     if not vault:
@@ -65,6 +70,7 @@ def list_entries(vault):
         console.print("[bold cyan]Stored sites:[/]")
         for site in vault.keys():
             console.print(f" - [green]{site}[/]")
+        console.print(Panel.fit("[bold magenta]LIST PASSWORDS[/]", style="magenta"))
 
 def load_vault():
     if not os.path.exists(DATA_FILE):

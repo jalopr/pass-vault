@@ -86,7 +86,7 @@ def login():
     users = load_users()
     console.print(Panel.fit("[cyan]🔑 Login to your account[/]", style="blue"))
     username = Prompt.ask("[bold cyan]👤 Enter username[/]")
-    password = Prompt.ask("[bold yellow]🔑 Enter new password[/]", password=True)
+    password = Prompt.ask("[bold yellow]🔑 Enter password[/]", password=True)
 
     stored_hash = users.get(username)
 

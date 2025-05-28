@@ -22,13 +22,12 @@ def menu():
         table.add_row("1", "REGISTER AN ACCOUNT")
         table.add_row("2", "LOGIN TO YOUR ACCOUNT")
         table.add_row("3", "LOGOUT FROM SESSION")
-        table.add_row("4", "SHOW SESSION STATUS")
         table.add_row("0", "EXIT PROGRAM")
 
         console.print(Align.center(table))
         console.print("\n")
 
-        choice = Prompt.ask("[bold magenta]👉 SELECT AN OPTION[/]", choices=["1", "2", "3", "4", "0"])
+        choice = Prompt.ask("[bold magenta]👉 SELECT AN OPTION[/]", choices=["1", "2", "3", "0"])
 
         if choice == "1":
             register()
@@ -41,8 +40,8 @@ def menu():
                 vm(user, stored_hash,logout)
         elif choice == "3":
             logout()
-        elif choice == "4":
-            status()
+        # elif choice == "4":
+        #     status()
         elif choice == "0":
             console.print("[bold red]👋 Exiting... Goodbye![/]")
             break

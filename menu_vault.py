@@ -6,7 +6,8 @@ from rich.panel import Panel
 from rich.align import Align
 from rich.progress import track
 from cryptography.fernet import Fernet
-from vault import add_entry, load_vault, list_entries
+from vault import add_entry, load_vault, list_entries, get_entry, update_entry, delete_entry
+from core import status
 import time
 import base64
 import hashlib
@@ -53,11 +54,11 @@ def menu_vault(current_user, stored_hash,logout_func):
         if choice == "1":
             add_entry(vault, fernet)
         elif choice == "2":
-            list_entries(vault)
+            get_entry(vault, fernet)
         elif choice == "3":
-            update_password()
+            update_entry(vault, fernet)
         elif choice == "4":
-            delete_password()
+            delete_entry(vault)
         elif choice == "5":
             list_entries(vault)
         elif choice == "0":
