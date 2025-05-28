@@ -10,15 +10,15 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.progress import track
 from rich.align import Align
-
+from config import get_config
 # Initialize Rich Console
 console = Console()
-USER_DB_FILE = "users.json"
 current_user = None  # Global variable for session tracking
+masterkey_user = None  # Global variable for session tracking
+
 # ----------- Config -----------
-KEY_FILE = "key.key"
-DATA_FILE = "vault.json"
-MASTER_HASH_FILE = "master.hash"
+config = get_config()
+USER_DB_FILE = config["USER_DB_FILE"]
 # ------------------------------
 
 # Function to add smooth loading effect
@@ -82,6 +82,7 @@ def register():
 # User login
 def login():
     global current_user
+    global stored_hash
     users = load_users()
     console.print(Panel.fit("[cyan]🔑 Login to your account[/]", style="blue"))
     username = Prompt.ask("[bold cyan]👤 Enter username[/]")
@@ -120,3 +121,6 @@ def status():
 
 def get_current_user():
     return current_user
+
+def get_stored_hash():
+    return stored_hash

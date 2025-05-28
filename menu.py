@@ -5,7 +5,7 @@ from rich.prompt import Prompt
 from rich.align import Align
 
 # Import from core
-from core import banner, register, login, logout, status, current_user, get_current_user
+from core import banner, register, login, logout, status, get_current_user, get_stored_hash
 
 console = Console()
 
@@ -36,8 +36,9 @@ def menu():
             if login():
                 # Import menu_vault here to avoid circular imports
                 user = get_current_user()
+                stored_hash = get_stored_hash()
                 from menu_vault import menu_vault as vm
-                vm(user, logout)
+                vm(user, stored_hash,logout)
         elif choice == "3":
             logout()
         elif choice == "4":
