@@ -1,9 +1,9 @@
 # Pass-Vault v0.2
 
-[![PyPI version](https://img.shields.io/pypi/v/pass-vault.svg)](https://pypi.org/project/pass-vault/)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/pass-vault.svg)](https://github.com/yourusername/pass-vault/stargazers)
-[![Downloads](https://static.pepy.tech/badge/pass-vault)](https://pepy.tech/project/pass-vault)
+[![GitHub stars](https://img.shields.io/github/stars/jalopr/pass-vault.svg)](https://github.com/jalopr/pass-vault/stargazers)
+
 
 A secure command-line password manager built with Python that allows users to safely store, retrieve, and manage their credentials.
 

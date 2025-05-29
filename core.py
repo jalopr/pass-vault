@@ -70,8 +70,19 @@ def register():
 
     password = Prompt.ask("[bold yellow]🔑 Enter new password[/]", password=True)
 
-    if len(password) < 6:
-        console.print("[bold red]⚠ Password must be at least 6 characters![/]")
+    # Enhanced password validation
+    if len(password) < 10 or len(password) > 48:
+        console.print("[bold red]⚠ Password must be between 10 and 48 characters![/]")
+        return
+    
+    # Check for required character types
+    has_lowercase = any(c.islower() for c in password)
+    has_uppercase = any(c.isupper() for c in password)
+    has_number = any(c.isdigit() for c in password)
+    has_symbol = any(not c.isalnum() for c in password)
+    
+    if not (has_lowercase and has_uppercase and has_number and has_symbol):
+        console.print("[bold red]⚠ Password must contain at least one lowercase letter, one uppercase letter, one number, and one symbol![/]")
         return
     
     users[username] = hash_password(password)
